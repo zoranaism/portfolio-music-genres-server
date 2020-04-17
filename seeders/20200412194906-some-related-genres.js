@@ -7,19 +7,19 @@ module.exports = {
       [
         {
           genreId: 1, 
-          inspired_genre_id: 2,
+          otherGenreId: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           genreId: 1, 
-          inspired_genre_id: 3,
+          otherGenreId: 3,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           genreId: 2, 
-          inspired_genre_id: 3,
+          otherGenreId: 3,
           createdAt: new Date(),
           updatedAt: new Date(),
         },

@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    inspired_genre_id: {
+    otherGenreId: {
       type: DataTypes.INTEGER,
       allowNull: false
     },

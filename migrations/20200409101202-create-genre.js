@@ -23,9 +23,6 @@ module.exports = {
       origins: {
         type: Sequelize.TEXT
       },
-      relatedGenres: {
-        type: Sequelize.STRING
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
