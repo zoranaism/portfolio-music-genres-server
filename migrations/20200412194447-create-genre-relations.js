@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('userFavGenres', {
+    return queryInterface.createTable('genreRelations', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -9,7 +9,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       genreId: {
-        type: Sequelize.INTEGER, 
+        allowNull: false,
+        type: Sequelize.INTEGER,
         references: {
           model: "genres",
           key: "id"
@@ -17,10 +18,11 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE"
       },
-      userId: {
-        type: Sequelize.INTEGER, 
+      inspired_genre_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
         references: {
-          model: "users",
+          model: "genres",
           key: "id"
         },
         onUpdate: "CASCADE",
@@ -37,6 +39,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('userFavGenres');
+    return queryInterface.dropTable('genreRelations');
   }
 };
