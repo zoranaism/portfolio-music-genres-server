@@ -6,7 +6,6 @@ module.exports = (sequelize, DataTypes) => {
     oneLineDescr: DataTypes.TEXT,
     characteristics: DataTypes.TEXT,
     origins: DataTypes.TEXT,
-    relatedGenres: DataTypes.STRING
   }, {});
   genre.associate = function(models) {
     genre.belongsToMany(models.user, {
@@ -17,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       as: "relations",
       through: "genreRelations",
       foreignKey: "genreId",
-      otherKey: "inspired_genre_id"
+      otherKey: "otherGenreId"
     });
   };
   return genre;

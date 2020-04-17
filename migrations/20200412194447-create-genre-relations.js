@@ -18,7 +18,7 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE"
       },
-      inspired_genre_id: {
+      otherGenreId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
