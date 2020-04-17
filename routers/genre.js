@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const Genre = require("../models").genre;
 const User = require("../models").user;
-// const GenreRelations = require("../models").genreRelations;
+const GenreRelations = require("../models").genreRelations;
 const auth = require("../auth/middleware");
 const Sequelize = require("sequelize");
 
@@ -13,7 +13,11 @@ router.get("/", async (req, res, next) => {
       include: [{ model: User }, {model: Genre, as: "relations"}],
     });
 
-    res.status(200).json(allGenres);
+    const allGenreRelations = await GenreRelations.findAll({  raw: true, attributes: ["genreId", "inspired_genre_id"]});
+
+    console.log("ALL GENRE RELATIONS", allGenreRelations);
+    
+    res.status(200).json({allGenres, allGenreRelations});
   } catch (e) {
     next(e);
   }
