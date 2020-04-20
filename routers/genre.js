@@ -23,7 +23,23 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.get("/:id", async (req, res, next) => {
+  try {
+    const id = parseInt(req.params.id);
 
+    const genre = await Genre.findByPk(id, {
+      include: [{ model: User }, {model: Genre, as: "relations"}],
+    });
+
+    if (!genre) {
+      return res.status(404).send({ message: "Genre not found" });
+    }
+
+    res.status(200).json({ genre });
+  } catch (e) {
+    next(e);
+  }
+});
 
 // genre name, relations, name should be unique, 
 // relations how many relations, that's how many rows, genreId and otherGenreId
