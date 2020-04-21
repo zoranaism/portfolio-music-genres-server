@@ -18,6 +18,12 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "genreId",
       otherKey: "otherGenreId"
     });
+    // genre.hasMany(models.genre, {
+    //   as: "relations",
+    //   through: "genreRelations",
+    //   foreignKey: "genreId",
+    //   otherKey: "otherGenreId"
+    // });
   };
   return genre;
 };
