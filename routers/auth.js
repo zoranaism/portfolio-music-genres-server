@@ -4,6 +4,7 @@ const { toJWT } = require("../auth/jwt");
 const authMiddleware = require("../auth/middleware");
 const User = require("../models/").user;
 const { SALT_ROUNDS } = require("../config/constants");
+const Genre = require("../models").genre;
 
 const router = new Router();
 
@@ -68,8 +69,14 @@ router.post("/signup", async (req, res) => {
 // - checking if a token is (still) valid
 router.get("/me", authMiddleware, async (req, res) => {
   // don't send back the password hash
-  delete req.user.dataValues["password"];
-  res.status(200).send({ ...req.user.dataValues });
+  const userId = req.user.id
+
+  const user = await User.findbyPk(userId, {
+    include: [{ model: Genre }]
+  });
+  
+  delete req.user["password"];
+  res.status(200).send({ user });
 });
 
 module.exports = router;
