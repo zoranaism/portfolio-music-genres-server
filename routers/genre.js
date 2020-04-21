@@ -31,23 +31,27 @@ router.get("/:id", async (req, res, next) => {
     const id = parseInt(req.params.id);
 
     const genre = await Genre.findByPk(id, {
-      include: [
-        { model: User },
-        {
-          model: Genre,
-          as: "relations",
-        },
-      ],
+      include: [{ model: User }],
+    });
+
+    const relations = await GenreRelations.findAll({
+      attributes: ["genreId", "otherGenreId", "id"],
+      where: {
+        genreId: id,
+      },
+      // include: [
+      //   {
+      //     model: Genre,
+      //   },
+      // ],
     });
 
     const otherRelations = await GenreRelations.findAll({
-      include: [
-        {
-          model: Genre,
-          // as: "relations",
-        },
-      ],
-      raw: true,
+      // include: [
+      //   {
+      //     model: Genre,
+      //   },
+      // ],
       attributes: ["genreId", "otherGenreId", "id"],
       where: {
         otherGenreId: id,
@@ -58,7 +62,7 @@ router.get("/:id", async (req, res, next) => {
       return res.status(404).send({ message: "Genre not found" });
     }
 
-    res.status(200).json({ genre, otherRelations });
+    res.status(200).json({ genre, relations, otherRelations });
   } catch (e) {
     next(e);
   }
