@@ -9,19 +9,25 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING, 
+        allowNull: false
       },
       history: {
         type: Sequelize.TEXT
       },
       oneLineDescr: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT, 
+        allowNull: false,
       },
       characteristics: {
         type: Sequelize.TEXT
       },
       origins: {
         type: Sequelize.TEXT
+      },
+      img: {
+        type: Sequelize.STRING, 
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
