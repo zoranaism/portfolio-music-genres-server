@@ -23,6 +23,78 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          genreId: 6, 
+          userId: 3,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          genreId: 12, 
+          userId: 3,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          genreId: 10, 
+          userId: 3,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          genreId: 5, 
+          userId: 2,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          genreId: 8, 
+          userId: 2,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          genreId: 11, 
+          userId: 2,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          genreId: 6, 
+          userId: 2,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          genreId: 12, 
+          userId: 2,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          genreId: 4, 
+          userId: 2,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          genreId: 4, 
+          userId: 3,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          genreId: 9, 
+          userId: 3,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          genreId: 4, 
+          userId: 3,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
         
       ],
       {}

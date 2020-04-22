@@ -69,9 +69,9 @@ router.post("/signup", async (req, res) => {
 // - checking if a token is (still) valid
 router.get("/me", authMiddleware, async (req, res) => {
   // don't send back the password hash
-  const userId = req.user.id
+  const id = parseInt(req.user.id);
 
-  const user = await User.findbyPk(userId, {
+  const user = await User.findByPk(id, {
     include: [{ model: Genre }]
   });
   

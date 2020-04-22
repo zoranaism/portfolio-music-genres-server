@@ -21,6 +21,18 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      about: {
+        type: Sequelize.TEXT
+      }, 
+      music: {
+        type: Sequelize.TEXT
+      }, 
+      image: {
+        type: Sequelize.STRING
+      },
+      isAdmin: {
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
