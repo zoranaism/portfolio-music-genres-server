@@ -29,15 +29,13 @@ module.exports = (sequelize, DataTypes) => {
     genre.belongsToMany(models.genre, {
       as: "relations",
       through: "genreRelations",
-      foreignKey: "genreId",
-      otherKey: "otherGenreId",
+      foreignKey: "genreId"
     });
-    // genre.hasMany(models.genre, {
-    //   as: "relations",
-    //   through: "genreRelations",
-    //   foreignKey: "genreId",
-    //   otherKey: "otherGenreId"
-    // });
+    genre.belongsToMany(models.genre, {
+      as: "otherRelations",
+      through: "genreRelations",
+      foreignKey: "otherGenreId"
+    });
   };
   return genre;
 };
