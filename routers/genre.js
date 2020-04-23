@@ -31,38 +31,20 @@ router.get("/:id", async (req, res, next) => {
     const id = parseInt(req.params.id);
 
     const genre = await Genre.findByPk(id, {
-      include: [{ model: User }],
+      include: [
+        { model: User }, 
+        { model: Genre, as: "relations" },
+        { model: Genre, as: "otherRelations" },
+      ],
     });
 
-    const relations = await GenreRelations.findAll({
-      attributes: ["genreId", "otherGenreId", "id"],
-      where: {
-        genreId: id,
-      },
-      // include: [
-      //   {
-      //     model: Genre,
-      //   },
-      // ],
-    });
-
-    const otherRelations = await GenreRelations.findAll({
-      // include: [
-      //   {
-      //     model: Genre,
-      //   },
-      // ],
-      attributes: ["genreId", "otherGenreId", "id"],
-      where: {
-        otherGenreId: id,
-      },
-    });
+    // const relation = await genreRelations.findByPk()
 
     if (!genre) {
       return res.status(404).send({ message: "Genre not found" });
     }
 
-    res.status(200).json({ genre, relations, otherRelations });
+    res.json({ genre });
   } catch (e) {
     next(e);
   }
@@ -76,11 +58,11 @@ router.get("/:id", async (req, res, next) => {
 // one line decr limit character number FE and BE
 
 router.post("/", async (req, res, next) => {
-  const { name, oneLineDescr } = req.body;
+  const { name, oneLineDescr, img, relations } = req.body;
 
-  if (!name || !oneLineDescr) {
+  if (!name || !oneLineDescr || !img) {
     return res.status(400).send({
-      message: "You have to write the genre name and one line decription",
+      message: "You have to write the genre name, one line decription and add image link",
     });
   }
 
@@ -88,6 +70,7 @@ router.post("/", async (req, res, next) => {
     const genre = await Genre.create({
       name,
       oneLineDescr,
+      img
     });
 
     return res.status(201).json({ message: "New genre created.", genre });
