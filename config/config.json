@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "postgres",
-    "password": "secret",
+    "password": "SECRET",
     "database": "portfolio_music_genres_development",
     "host": "localhost",
     "dialect": "postgres",

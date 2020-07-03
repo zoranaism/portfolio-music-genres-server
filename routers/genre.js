@@ -32,7 +32,7 @@ router.get("/:id", async (req, res, next) => {
 
     const genre = await Genre.findByPk(id, {
       include: [
-        { model: User }, 
+        { model: User },
         { model: Genre, as: "relations" },
         { model: Genre, as: "otherRelations" },
       ],
@@ -50,81 +50,59 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-// relations how many relations, that's how many rows, genreId and otherGenreId
-// chek if there is already a genre with that name
 // dont allow relation duplication
-// one line decr limit character number FE and BE
+// one line decr limit character number FE and BE warning 
 
-router.post("/", auth,  async (req, res, next) => {
+router.post("/", auth, async (req, res, next) => {
   const { name, oneLineDescr, img, relations } = req.body;
 
   if (!name || !oneLineDescr || !img) {
     return res.status(400).send({
-      message: "You have to write the genre name, one line decription and add image link",
+      message:
+        "You have to write the genre name, one line decription and add image link",
     });
   }
 
-  // const existingName = await Genre.findOne({ where: { name } });
+  const existingName = await Genre.findOne({ where: { name } });
 
-  // if (existingName) {
-  //   return res.status(409).send({
-  //     message: "This Genre entty conflicts with the existing one. Try with another Genre name.",
-  //   });
-  // }
+  if (existingName) {
+    return res.status(409).send({
+      message:
+        "This Genre entty conflicts with the existing one. Try with another Genre name.",
+    });
+  }
 
   try {
     const genre = await Genre.create({
       name,
       oneLineDescr,
-      img
-    });
-
-    // const newRelations = relations.map((relation) => { 
-       
-    //     // const obj = {otherGenreId: relation, genreId: genre.id }
-
-    //     return obj
-    // })
-
-    // console.log("NEW RELATIONS", newRelations);
+      img,
+    })
     
-
-
-    // TRY I
-        //   var data = [
-        //     {
-        //         'cat_name':'fashion'
-        //     },
-        //     {
-        //         'cat_name':'food'
-        //     }
-        // ];
-        // orm.models.category.bulkCreate(data)
-        // })
-        
-    // TRY II
-        // const owners = [
-        //   {
-        //     name: "John",
-        //     role: "user"
-        //   },
-        //   {
-        //     name: "Sean",
-        //     role: "user"
-        //   }
-        // ];
-
-        // app.post('/owners/bulk', (req, res) => {
-        //   const ownerList = req.body.owners;
-        //   db.owners.bulkCreate(ownerList)
-        //     .then(newOwners => {
-        //       res.json(newOwners);
-        //     })
-        // });
+    if (relations) {
       
+    }
     
+    // const allNewRel = async(relations, genre) => {
+   
+        let relObjects = relations.map((relationId) => ({
+          genreId: genre.id,
+          otherGenreId: relationId,
+        }));
+        const newRelations = await GenreRelations.bulkCreate(relObjects, {
+          plain: true,
+        });
+        // .then((newRelations) => {
+        //   // const dataObj = newRelations.get({plain:true})
+        // })
+        // return newRelations;
+        
+      // }
+      console.log("ALL NEW RELATIONS", newRelations);
 
-    return res.status(201).json({ message: "New genre created.", genre });
+    return res
+      .status(201)
+      .json({ message: "Genre created successfully.", genre, newRelations });
   } catch (e) {
     next(e);
   }
